@@ -1,49 +1,50 @@
-collective.transcode.recipe
-============
-
 Introduction
 ============
-buildout recipe that sets collective.transcode.daemon. collective.transcode.daemon is a fork of atreal's darksnow.convertdaemon (https://svn.atreal.net/public/svn.darksnow.org/ConvertDaemon) featuring improvements, and a code cleanout. 
+buildout recipe for collective.transcode.daemon
 
 
-How to get it working
-============
+Installation
+------------
 
-Needs ffmpeg. python-twisted and python-twisted-web2 are included on the buildout so no need to install seperately.
-Tested on Linux (Ubuntu 9.04) and Mac OS X 10.5.7.
+You can find a sample buildout here:
+https://svn.plone.org/svn/collective/collective.transcode.buildout/trunk/
+
+The transcoding scripts provided with the above buildout require ffmpeg and ffmpeg2theora.
 
 
-Try this
-user@user:~$ svn co https://svn.plone.org/svn/collective/collective.transcode.recipe/trunk transcode.buildout
-user@user:~$ cd transcode.buildout
-user@user:~/transcode.buildout$ python2.4 bootstrap.py 
-user@user:~/transcode.buildout$ ./bin/buildout -v
-user@user:~/transcode.buildout$ ./bin/transcodedaemon fg
-
+$ svn co https://svn.plone.org/svn/collective/collective.transcode.buildout/trunk transcode.buildout
+$ cd transcode.buildout
+$ python bootstrap.py 
+$ ./bin/buildout -v
+$ ./bin/transcodedaemon fg
 Initializing
 ...
 2009-11-25 19:28:14+0200 [-] Scheduler thread running
 
 
+Supported options
+-----------------
 
-Configuration options
-============
+The recipe supports the following options:
 
-On buildout.cfg, upon transcodedaemon section, the following settings can be configured:
-
-listen_host=locahost #ip or hostname to listen
-listen_port=8888     #port to use
-videofolder=videos   #path of folder where transcoded videos are stored
-
+listen_host
+	hostname to listen
+listen_port
+	port to use
+videofolder
+	relative path of folder where transcoded videos are stored
+profiles
+	a python list of dicts specifying the supported transcoded profiles. The dict should contain the id of the profile, the command to be executed with the first parameter to be the input and the second the output file, and the list of supported mime types for this profile
+	e.g. profiles = [ {'id':'low', 'cmd':'scripts/lowQualityTranscode %s %s', 'supported_mime_types': ['video/mpeg', 'video/3gpp'] } ]
  
-==How can I change the quality and format of the transcoded files
-You'll have to change the profiles list. On buildout.cfg, upon transcodedaemon section, edit the profiles ('low', 'high' are the defaults)
 
 
-Todo
-============
-* Use xml conf to create video path
-* Better video URL (path/origfile.avi/profileid/filename.flv)
+Usage
+-----
 
+For the moment the only way to see collective.transcode.daemon in full action is to use Plumi 3.0:
+    http://plone.org/products/plumi or http://svn.plone.org/svn/collective/plumi.buildout/
+
+We are now working on a generic Plone integration component for collective.transcode.daemon. Note however that there is nothing Plone specific in c.t.d. It shouldn't be hard to integrate it in any other content management framework.
 
 
