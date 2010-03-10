@@ -11,23 +11,6 @@ from collective.transcode.daemon.common.config import videofolder as default_vid
 from collective.transcode.daemon.common.config import profiles as default_profiles
 
 
-def transcodedaemonshell(argv):
-    import sys
-    import logging
-    logging.basicConfig(format="%(levelname)-10s %(name)-20s %(message)s",
-                        stream=sys.stdout,
-                        level=logging.INFO,
-                        )
-    
-    from IPython.Shell import IPShellEmbed
-    ipshell = IPShellEmbed()
-    def runshell():
-        ipshell()
-    #from convertdaemon.core.reactor import convertdaemonctor
-    #convertdaemonctor.callInGreen(runshell)
-    #convertdaemonctor.mainLoop()
-
-
 class Recipe(object):
     """zc.buildout recipe"""
 
@@ -76,16 +59,10 @@ class Recipe(object):
         location = self.options['location']
 
         from collective.transcode.daemon import common
-        #conf_dir = join(location, 'etc')
-        #default_conf = join(dirname(common.__file__), 'etc/defaults.xml')
-        #transcode_conf = join(location, 'etc/transcodedaemon_conf.xml')
 	transcode_conf = join(location, 'config.py')
 
         if not exists(location):
             os.mkdir(location)
-        #if not exists(conf_dir):
-            #os.mkdir(conf_dir)
-        #os.system('cp "%s" "%s"' % (default_conf, conf_dir))
         self.writeConf(transcode_conf)
 
 
@@ -118,16 +95,3 @@ class Recipe(object):
             initialization='import os\nos.chdir("%s")' % bodir,
             )
 
-        zc.buildout.easy_install.scripts(
-            [(self.options.get('control-script', "iptranscodedaemon"),
-                'collective.transcode.recipe', 'transcodedaemonshell')],
-            ws, options['executable'], options['bin-directory'],
-            extra_paths = extra_paths,
-            #Passing arguments to the ctl main function
-            arguments = ('\n        [%r]'
-                         '\n        + sys.argv[1:]'
-                         % location
-                         ),
-            #So we can use paths relative to the buildout directory!!
-            initialization='import os\nos.chdir("%s")' % bodir,
-            )

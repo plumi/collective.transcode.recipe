@@ -22,7 +22,11 @@ def main(args):
         return
     os.environ['TRANSCODEDAEMON_ROOT'] = args[0]
     py_file = join(dirname(common.__file__), 'transcodedaemon.py')
-    options = ['-y', py_file, '--pidfile', '/tmp/TranscodeDaemon.pid']
+    if '--pidfile' in args:
+        pidfile = args[args.index('--pidfile')+1]
+    else:
+        pidfile = '/tmp/TranscodeDaemon.pid'
+    options = ['-y', py_file, '--pidfile', pidfile]
     options.extend(cmd_map[args[1]])
     sys.argv[1:]=[]
     sys.argv.extend(options)
