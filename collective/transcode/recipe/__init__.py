@@ -5,10 +5,11 @@ import zc.buildout
 import zc.recipe.egg
 
 from os.path import abspath, dirname, join, exists
-from collective.transcode.daemon.common.config import listen_host as default_listen_host
-from collective.transcode.daemon.common.config import listen_port as default_listen_port
-from collective.transcode.daemon.common.config import videofolder as default_videofolder
-from collective.transcode.daemon.common.config import profiles as default_profiles
+from collective.transcode.daemon.config import listen_host as default_listen_host
+from collective.transcode.daemon.config import listen_port as default_listen_port
+from collective.transcode.daemon.config import videofolder as default_videofolder
+from collective.transcode.daemon.config import profiles as default_profiles
+from collective.transcode.daemon.config import secret as default_secret
 
 
 class Recipe(object):
@@ -39,12 +40,14 @@ class Recipe(object):
 	videofolder = self.options.get('videofolder', default_videofolder)
 	host = self.options.get('listen_host', default_listen_host)
         port = self.options.get('listen_port', default_listen_port)
+        secret = self.options.get('secret', default_secret)
 
         conf_file = file(filename, 'w')
-	conf_file.write('listen_host = "%s"'%host + '\n')
-        conf_file.write('listen_port = "%s"'%port + '\n')
-	conf_file.write('videofolder = "%s"'%videofolder + '\n')
-	conf_file.write('profiles = "%s"'%profiles + '\n')
+	conf_file.write('listen_host = "%s"'% host + '\n')
+        conf_file.write('listen_port = "%s"'% port + '\n')
+        conf_file.write('secret = "%s"'% secret + '\n')
+	conf_file.write('videofolder = "%s"'% videofolder + '\n')
+	conf_file.write('profiles = "%s"'% profiles + '\n')
 	conf_file.close()
 
 
@@ -58,7 +61,6 @@ class Recipe(object):
     def preparePartDir(self):
         location = self.options['location']
 
-        from collective.transcode.daemon import common
 	transcode_conf = join(location, 'config.py')
 
         if not exists(location):

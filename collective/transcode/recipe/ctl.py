@@ -7,7 +7,7 @@ if hasattr(os, "getuid") and os.getuid() != 0:
 
 import os
 from os.path import dirname, join
-from collective.transcode.daemon import common
+from collective.transcode import daemon
 from twisted.scripts.twistd import run
 
 cmd_map = dict(
@@ -21,7 +21,7 @@ def main(args):
         os.kill(pid, 15)
         return
     os.environ['TRANSCODEDAEMON_ROOT'] = args[0]
-    py_file = join(dirname(common.__file__), 'transcodedaemon.py')
+    py_file = join(dirname(daemon.__file__), 'transcodedaemon.py')
     if '--pidfile' in args:
         pidfile = args[args.index('--pidfile')+1]
     else:
