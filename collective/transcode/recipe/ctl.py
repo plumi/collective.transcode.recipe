@@ -17,7 +17,7 @@ cmd_map = dict(
 
 def main(args):
     if args[1] == 'stop':
-        pid = int(file('/tmp/TranscodeDaemon.pid').read())
+        pid = int(file('%s/TranscodeDaemon.pid' % args[0]).read())
         os.kill(pid, 15)
         return
     os.environ['TRANSCODEDAEMON_ROOT'] = args[0]
@@ -25,7 +25,7 @@ def main(args):
     if '--pidfile' in args:
         pidfile = args[args.index('--pidfile')+1]
     else:
-        pidfile = '/tmp/TranscodeDaemon.pid'
+        pidfile = '%s/TranscodeDaemon.pid' % args[0]
     options = ['-y', py_file, '--pidfile', pidfile]
     options.extend(cmd_map[args[1]])
     sys.argv[1:]=[]
