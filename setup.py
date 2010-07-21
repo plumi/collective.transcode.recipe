@@ -11,12 +11,7 @@ def read(*rnames):
 version = '0.2'
 
 long_description = (
-    read('collective/transcode/recipe/README.txt')
-    + '\n' +
-    'Detailed Documentation\n'
-    '**********************\n'
-    + '\n' +
-    read('collective', 'transcode', 'recipe', 'README.txt')
+    read('README.txt')
     + '\n' +
     'Contributors\n' 
     '************\n'
@@ -31,6 +26,7 @@ long_description = (
    'Download\n'
     '********\n'
     )
+
 entry_point = 'collective.transcode.recipe:Recipe'
 entry_points = {"zc.buildout": ["default = %s" % entry_point]}
 
