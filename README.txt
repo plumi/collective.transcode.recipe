@@ -5,8 +5,8 @@ A zc.buildout recipe that configures a collective.transcode.daemon instance
 
 For more info check out
 
- * http://pypi.python.org/pypi/collective.transcode.daemon
- * http://pypi.python.org/pypi/collective.transcode.star
+- http://pypi.python.org/pypi/collective.transcode.daemon
+- http://pypi.python.org/pypi/collective.transcode.star
 
 
 Supported options
