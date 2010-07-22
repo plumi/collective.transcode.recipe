@@ -1,4 +1,4 @@
-0.2 (2010-21-18)
+0.2 (2010-07-22)
 ----------------
 
 - Release for collective.transcode.daemon 0.2
