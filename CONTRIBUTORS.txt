@@ -1,6 +1,6 @@
-Dimitris Moraitis, unweb.me
-Mike Muzurakis, unweb.me
-Markos Gogoulos, unweb.me
-Victor Rajewski, engagemedia.org
-
+Dimitris Moraitis, <dimo@unweb.me>
+Mike Muzurakis, <clopy@unweb.me>
+Markos Gogoulos, <mgogoulos@unweb.me>
+Victor Rajewski, <vik@engagemedia.org>
+Christos Psaltis, <cpsaltis@unweb.me>
 
